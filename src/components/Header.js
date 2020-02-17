@@ -178,23 +178,21 @@ class Header extends Component {
                 <div className="title">
                     Iron Movies
                 </div>
-                <div className="placeholder">
-                </div>
-                <div className="menu">
+                <div className="menu1">
                     <NavLink to="/list">ALL MOVIES</NavLink>
                 </div>
-                <div className="menu">
+                <div className="menu2">
                     <NavLink to="/recent">RECENT MOVIES</NavLink>
                 </div>
-                <div className="menu">
+                <div className="menu3">
                     <NavLink to="/edit/0">ADD MOVIE</NavLink>
                 </div>
-                <div className="menu">
+                <div className="menu4">
                     <Button className="menu" onClick={this.toggleForm('loginForm')}>
                         LOGIN
                     </Button>
                 </div>
-                <div className="menu">
+                <div className="menu5">
                     <Button className="menu" onClick={this.toggleForm('signupForm')}>
                         SIGN UP
                     </Button>

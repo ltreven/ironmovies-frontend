@@ -7,9 +7,11 @@
 }
 .poster { 
     grid-area: poster; 
-    font-size: 30px;
+    font-size: 18px;
     font-weight: 400;
     color: #BB66CC;
+    min-width: 400px;
+    min-height: 400px;
 }
 
 .poster img {
@@ -67,3 +69,16 @@
   width: 80%;
 }
 
+@media screen and (max-width: 768px) {
+    .details-grid-container {
+        grid-template-areas:
+        'movietitle movietitle  '
+        'director director  '
+        'category category '
+        'release release '
+        'score score  '
+        'poster poster '
+        'buttonEdit buttonDelete ';
+    }
+
+  } 

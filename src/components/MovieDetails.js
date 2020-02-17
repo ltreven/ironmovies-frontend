@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import Cookies from 'universal-cookie';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../Details.css';
 import { baseUrl } from '../BaseUrl.js';
 
@@ -17,8 +19,7 @@ class MovieDetails extends Component {
         this.handleDelete = this.handleDelete.bind(this);
     }
 
-    handleDelete(event) {
-        
+    deleteMovie() {
         const cookies = new Cookies();
 
         fetch(baseUrl + 'movies/' + this.state.movie._id, {
@@ -45,6 +46,25 @@ class MovieDetails extends Component {
             alert("Movie deleted successfully!"); 
         })
         .catch((err) => alert("Could not delete movie. "));            
+
+    }
+
+    handleDelete(event) {
+        
+        confirmAlert({
+            title: 'Attention',
+            message: 'Do you really want to DELETE this movie?',
+            buttons: [
+            {
+                label: 'Yes',
+                onClick: () => this.deleteMovie()
+            },
+            {
+                label: 'No'
+            }
+            ]
+        });
+          
 
     }
 

@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 import { baseUrl } from '../BaseUrl.js';
 import { baseImgUrl } from '../BaseImgUrl.js';
 import { categories } from '../Categories.js';
+import '../Details.css';
 
 class EditMovie extends Component {
 
@@ -216,11 +217,15 @@ class EditMovie extends Component {
     }
 
     handleFile = (event) => {
-        console.log(event.target.files[0]);
         this.setState({
             form: {
                 ...this.state.form,
-                posterFile: event.target.files[0]
+                posterFile: event.target.files[0],
+                posterSrc: URL.createObjectURL(event.target.files[0])
+            },
+            movie: {
+                ...this.state.movie,
+                posterImageUrl: null
             }
         });
     }
@@ -290,11 +295,11 @@ class EditMovie extends Component {
 
         return (
             <div>
-                <Form onSubmit={this.handleSave}>
-                    <FormGroup>
+                <Form onSubmit={this.handleSave} className="details-grid-container">
+                    <FormGroup className="movietitle">
                         <Label htmlFor="title">Movie Title</Label>
                         <Input type="text" id="title" name="title"
-                            value={this.state.movie.title}
+                            value={this.state.movie.title || ''}
                             invalid={this.state.form.title.touched && !this.state.form.title.valid}
                             onChange={this.handleInputChange}
                             onBlur={this.handleBlur} />
@@ -302,14 +307,16 @@ class EditMovie extends Component {
                             Title is required
                         </FormFeedback>
                     </FormGroup>
-                    <FormGroup> 
+                    <FormGroup  className="poster"> 
                         <Label htmlFor="posterImageUrl">Poster Image</Label>
+                        <br/>
+                        <img src={this.state.movie.posterImageUrl || this.state.form.posterSrc || '/img/upload.png'} alt="upload poster" />
                         <Input type="file" name="file" onChange={this.handleFile}/>
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup  className="director">
                         <Label htmlFor="director">Director's Name</Label>
                         <Input type="text" id="director" name="director"
-                            value={this.state.movie.director}
+                            value={this.state.movie.director || ''}
                             invalid={this.state.form.director.touched && !this.state.form.director.valid}
                             onChange={this.handleInputChange}
                             onBlur={this.handleBlur} />
@@ -317,10 +324,10 @@ class EditMovie extends Component {
                             Director is required
                         </FormFeedback>
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup className="release">
                         <Label htmlFor="release">Release Date</Label>
                         <DatePicker 
-                            selected={this.state.movie.release} 
+                            selected={this.state.movie.release || new Date()} 
                             onChange={(date) => {
                                 this.setState({
                                     movie: {
@@ -330,19 +337,19 @@ class EditMovie extends Component {
                                 });
                             }} />
                     </FormGroup>
-                    <FormGroup> 
+                    <FormGroup className="movieCategory"> 
                         <Label htmlFor="release">Category</Label>
                         <Input type="select" id="category" name="category" 
-                            value={this.state.movie.category}
+                            value={this.state.movie.category  || ''}
                             onChange={this.handleInputChange}
                             onBlur={this.handleBlur}>
                                 {categoryList}
                         </Input>
                     </FormGroup>
-                    <FormGroup> 
-                        <Label htmlFor="release">Score movie (0-10)</Label>
+                    <FormGroup className="score"> 
+                        <Label htmlFor="score">Score movie (0-10)</Label>
                         <Input type="text" id="score" name="score"
-                            value={this.state.movie.score}
+                            value={this.state.movie.score || ''}
                             invalid={this.state.form.score.touched && !this.state.form.score.valid}
                             onChange={this.handleInputChange}
                             onBlur={this.handleBlur} />
@@ -350,7 +357,7 @@ class EditMovie extends Component {
                             Score must be between 1 and 10
                         </FormFeedback>
                     </FormGroup>
-                    <FormGroup> 
+                    <FormGroup className="buttonEdit"> 
                         <Button color="primary" onClick={this.handleSave}>SAVE</Button>{' '}
                     </FormGroup>
                 </Form>

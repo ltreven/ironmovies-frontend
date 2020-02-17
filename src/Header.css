@@ -1,6 +1,8 @@
 .header {
   display: grid;
-  grid-template-columns: 80px 30% 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 80px 1fr repeat(5, 1fr);
+  grid-template-areas: 
+    'logo title menu1 menu2 menu3 menu4 menu5';
   width: 100%;
   height: 60px;
   text-align: center;
@@ -10,6 +12,7 @@
 }
 
 .header .logo {
+  grid-area: logo;
   background-image: url('/img/ironhack.png');
   background-repeat: no-repeat;
   background-size: contain;
@@ -18,6 +21,7 @@
 }
 
 .header .title {
+  grid-area: title;
   font-family: "Roboto", sans-serif;
   color: #BB66CC;
   font-size: 24px;
@@ -29,27 +33,73 @@
   text-align: left;
 }
 
-.header .menu {
-  font-family: "Roboto", sans-serif;
-  color: #BB66CC;
+.header .menu1 {
+  grid-area: menu1;
   font-size: 18px;
-  letter-spacing: 0px;
-  line-height: 1.2;
   font-weight: 400;
-  font-style: normal;
   text-align: center;
   white-space: nowrap;
-  background:none;
-  border:none;
+  cursor: pointer;
+}
+
+.header .menu2 {
+  grid-area: menu2;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.header .menu3 {
+  grid-area: menu3;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.header .menu4 {
+  grid-area: menu4;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.header .menu5 {
+  grid-area: menu5;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
   cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
   .header {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 'menu1 menu2 menu3 menu4 menu5';
+    grid-template-columns: repeat(5, 1fr);
     height: 100px;
   }
+  .header .logo {
+    display: none;
+  }
   .header .title {
-    grid-column: 2 / 4;
+    display: none;
+  }
+} 
+
+@media only screen and (max-device-width: 480px) {
+  .header {
+    grid-template-areas: 'menu1 menu2 menu3 '
+                        'menu4 menu5';
+    grid-template-columns: repeat(3, 1fr);
+    height: 100px;
+  }
+  .header .logo {
+    display: none;
+  }
+  .header .title {
+    display: none;
   }
 } 
