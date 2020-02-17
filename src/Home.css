@@ -1,37 +1,3 @@
-.feat1text {
-  width: 80%;
-  height: 80%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-
-.feat1text .feat1text1 {
-  width: 452px;
-  height: 86px;
-  font-family: "Roboto", sans-serif;
-  color: #FFFFFF;
-  font-size: 72px;
-  letter-spacing: 0px;
-  line-height: 1.2;
-  font-weight: 700;
-  font-style: normal;
-  grid-column: 1/-1;
-}
-
-.feat1text .feat1text2 {
-  width: 452px;
-  height: 86px;
-  font-family: "Roboto", sans-serif;
-  color: #FFFFFF;
-  font-size: 40px;
-  letter-spacing: 0px;
-  line-height: 1.2;
-  font-weight: 700;
-  font-style: normal;
-  text-align: right;
-  grid-column: 2/-1;
-}
 
 .homepage {
   width: auto;
@@ -112,52 +78,39 @@
   font-weight: 700;
   font-style: normal;
 }
+.feat1text {
+  width: 80%;
+  height: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
 
-.homepage .footer-text {
+.feat1text .feat1text1 {
+  width: 452px;
+  height: 86px;
   font-family: "Roboto", sans-serif;
-  color: #4455BB;
-  font-size: 24px;
+  color: #FFFFFF;
+  font-size: 72px;
   letter-spacing: 0px;
   line-height: 1.2;
-  font-weight: 300;
+  font-weight: 700;
   font-style: normal;
-  height: 470px;
-  display: flex;
-  align-items: center;
-  background: #DDDDDD;
-  text-align: left;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(8, 1fr);
+  grid-column: 1/-1;
 }
 
-.homepage .footer-in {
-  height: 470px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #DDDDDD;
-}
-
-.homepage .footer-photo {
-  height: 470px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: #DDDDDD;
-
-}
-
-.my-photo {
-  width: 250px;
-  height: 250px;
-  border-radius: 200px;
-}
-
-.linkedin {
-  width: 100px;
-  height: 100px;
+.feat1text .feat1text2 {
+  width: 452px;
+  height: 86px;
+  font-family: "Roboto", sans-serif;
+  color: #FFFFFF;
+  font-size: 40px;
+  letter-spacing: 0px;
+  line-height: 1.2;
+  font-weight: 700;
+  font-style: normal;
+  text-align: right;
+  grid-column: 2/-1;
 }
 
 @media screen and (max-width: 768px) {
@@ -167,14 +120,5 @@
   .homepage .highlight-feat2 {
     display: none;
   }
-  .homepage .footer-photo {
-    display: none;
-  }
-  .homepage .footer-in {
-    display: none;
-  }
-  .homepage .footer-text {
-    grid-column: 1 / -1;
-    text-align: center;
-  }
+
 } 

@@ -1,0 +1,50 @@
+.footer {
+    display: grid;
+    grid-template-columns: 150px auto auto;
+    grid-template-rows: repeat(3, 1fr);
+    background-color: #DDDDDD;
+    min-height: 120px;
+    justify-items: auto;
+    align-items: center;
+    padding: 10px;
+}
+
+.footer .name {
+    font-family: "Roboto", sans-serif;
+    color: #5291e3;
+    font-size: 24px;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-style: normal;
+    text-align: left;
+}
+
+.footer .contact {
+    font-family: "Roboto", sans-serif;
+    color: #5291e3;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-style: normal;
+    text-align: left;
+}
+
+.footer .docs {
+    font-family: "Roboto", sans-serif;
+    color: #5291e3;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-style: normal;
+    text-align: left;
+}
+
+.footer .linkedin {
+    grid-row: 1 / span 3;
+    align-self: center;
+    width: 100px;
+    height: 100px;  
+}

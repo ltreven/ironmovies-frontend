@@ -1,0 +1,43 @@
+.scrollcontainer {
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    width: 100%;
+    min-height: 200px;
+}
+
+.scrollcontainer .category {
+    font-family: "Roboto", sans-serif;
+    color: #BB66CC;
+    font-size: 24px;
+    letter-spacing: 0px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-style: normal;
+    text-align: left;
+    align-self: center;
+    padding: 50px;
+}
+
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+    padding: 10px;
+}
+
+div.scrollmenu img {
+    width: 300px;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    width: 350px;
+}
+  
+div.scrollmenu a:hover {
+    background-color: darkgrey;
+}

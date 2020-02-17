@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 
+import Carrusel from './Carrusel';
+
 class MoviesList extends Component {
 
     render () {
+
         return (
-            <div className="container">
-                <h1>MoviesList</h1>
+            <div>
+                <br/><br/>
+                <Carrusel category="documentary" />
+                <br/><br/><br/>
+                <Carrusel category="drama" />
+                <br/><br/><br/>
+                <Carrusel category="comedy" />
+                <br/><br/><br/>
+                <Carrusel />
             </div>
         );    
     }
