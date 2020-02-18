@@ -78,7 +78,6 @@ class EditMovie extends Component {
         .catch(err => console.log("Error loading movie ID ", pMovieId));
     }
 
-
     canSubmit() {
         let can = true;
 
@@ -146,7 +145,7 @@ class EditMovie extends Component {
             fetch(url, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'bearer ' + cookies.get("iron-token")
+                    'Authorization': 'Bearer ' + cookies.get("iron-token")
                 },
                 method: method,
                 body: JSON.stringify(theMovie)
@@ -168,6 +167,9 @@ class EditMovie extends Component {
                     }
                 });
                 alert("Movie " + message + "d successfully!"); 
+                this.setState({
+                    redirect: true
+                })
             })
             .catch((err) => alert("Could not " + message + " movie. "));            
         }
@@ -183,7 +185,7 @@ class EditMovie extends Component {
             fetch(baseUrl + 'upload/', {
                     method: 'POST',
                     headers: {
-                    'Authorization': 'bearer ' + cookies.get("iron-token")
+                    'Authorization': 'Bearer ' + cookies.get("iron-token")
                 },
                     body: formData
                 })
@@ -209,10 +211,6 @@ class EditMovie extends Component {
         } else {
             saveMovie();
         }
-
-        this.setState({
-            redirect: true
-        })
 
     }
 
@@ -296,6 +294,9 @@ class EditMovie extends Component {
         return (
             <div>
                 <Form onSubmit={this.handleSave} className="details-grid-container">
+                    <div className="pagetitle">
+                        Edit Movie
+                    </div>
                     <FormGroup className="movietitle">
                         <Label htmlFor="title">Movie Title</Label>
                         <Input type="text" id="title" name="title"

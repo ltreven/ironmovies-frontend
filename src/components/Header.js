@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, 
-        Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+        Form, FormGroup, Label, Input, FormFeedback, ModalFooter } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import FacebookLogin from 'react-facebook-login';
 import { baseUrl } from '../BaseUrl.js';
 import '../App.css';
 import '../Header.css';
@@ -13,6 +14,8 @@ class Header extends Component {
         super(props);
 
         this.state = {
+            search: '',
+            facebook: {},
             loginForm: {
                 isOpen: false,
                 username: {
@@ -53,6 +56,18 @@ class Header extends Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
+
+        this.search = this.search.bind(this);
+
+        this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
+        this.loginFacebookClick = this.loginFacebookClick.bind(this);
+        this.signupFacebookClick = this.signupFacebookClick.bind(this);
+    }
+
+    search = (evt) => {
+        this.setState({
+            search: evt.target.value
+        });        
     }
 
     toggleForm = (formName) => (evt) => {
@@ -85,18 +100,35 @@ class Header extends Component {
             }
         })
         .catch((err) => {
-            alert("Invalid username or password. Please try again.");
+            alert("Invalid email or password. Please try again.");
         });
     }
 
     handleLogin(event) {
-        this.toggleForm('loginForm')(event);
-        this.login(this.state.loginForm.username.value, 
-            this.state.loginForm.password.value);    
+        // validate all fields to prevent clicking on login button
+        // before touching fields
+        if (this.state.loginForm.username.value === '' || 
+                this.state.loginForm.password.value === '') {
+            alert("please provide e-mail and password");
+        } else {
+            this.toggleForm('loginForm')(event);
+            this.login(this.state.loginForm.username.value, 
+                this.state.loginForm.password.value);        
+        }
+
         event.preventDefault();
     }
 
     handleSignup(event) {
+        if (this.state.signupForm.username.value === '' || 
+                this.state.signupForm.password.value === '' ||
+                this.state.signupForm.fullName.value === '' ||
+                !this.state.signupForm.username.valid) {
+            alert("please provide email, password and full name");
+            event.preventDefault();
+            return;
+        }
+
         this.toggleForm('signupForm')(event);
 
         // CALL POST
@@ -114,10 +146,8 @@ class Header extends Component {
         })
         .then(res => res.json())
         .then((data) => {
-            if (data.ok) {
-                alert('User created successfully');
-                this.login(this.state.signupForm.username.value, this.state.signupForm.password.value)
-            }
+            alert('User created successfully');
+            this.login(this.state.signupForm.username.value, this.state.signupForm.password.value)
         })
         .catch((err) => {
             alert("Error creating user");
@@ -158,58 +188,108 @@ class Header extends Component {
     }
 
     validateField (fieldName, fieldValue) {
-        if (fieldName === "username" 
-            || fieldName === "password"
+        if (fieldName === "password"
             || fieldName === "fullName") {
             // returns true if !== "" (valid situation) 
             return fieldValue !== "";
         }
+        if (fieldName === "username") {
+            return fieldValue !== "" && /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(fieldValue);
+        }
+
         return true;
     }
 
-    render () {
+    handleFacebookLogin (fbResponse) {
+        console.log("STORE Facebook Data. Token: ", fbResponse.accessToken);
 
+        fetch(baseUrl + 'users/login/facebook', {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + fbResponse.accessToken
+            },
+            method: "POST",
+            body: JSON.stringify({})
+        })
+        .then(res => res.json())
+        .then((data) => {
+            if (data.success) {
+                const cookies = new Cookies();
+                cookies.set('iron-token', data.token, { path: '/' });
+                alert("Succefully logged in! Welcome " + fbResponse.name);
+            }
+        })
+        .catch((err) => {
+            alert("Could not login via Facebook.");
+        });
+
+    }
+
+    loginFacebookClick () {
+        console.log("loginFacebook function");
+        this.toggleForm('loginForm')();
+    }
+
+    signupFacebookClick () {
+        this.toggleForm('signupForm')();
+    }
+
+    render () {
         return (
             <React.Fragment>
-            <div className="header">
-                <div className="logo">
-                    <NavLink to="/home">&nbsp;&nbsp;&nbsp;&nbsp;</NavLink>
+            <div className="topbar">
+                <div className="iron">
+                    <div>
+                        <NavLink to="/home">
+                            <img src="/img/ironhack.png" alt="logo" className="logo" height="40px" />
+                        </NavLink>
+                    </div>
+                    <div>
+                        IRON MOVIES
+                    </div>
                 </div>
-                <div className="title">
-                    Iron Movies
+                <div className="search">
+                    <div>
+                        <input type="text" size="30" 
+                        placeholder="(search title or director)" 
+                        onChange={this.search} 
+                        onBlur={this.search}/>
+                    </div>
+                    <div>
+                        <NavLink to={"/results?q=" + this.state.search}>SEARCH</NavLink>
+                    </div>
                 </div>
-                <div className="menu1">
-                    <NavLink to="/list">ALL MOVIES</NavLink>
-                </div>
-                <div className="menu2">
-                    <NavLink to="/recent">RECENT MOVIES</NavLink>
-                </div>
-                <div className="menu3">
-                    <NavLink to="/edit/0">ADD MOVIE</NavLink>
-                </div>
-                <div className="menu4">
-                    <Button className="menu" onClick={this.toggleForm('loginForm')}>
-                        LOGIN
-                    </Button>
-                </div>
-                <div className="menu5">
-                    <Button className="menu" onClick={this.toggleForm('signupForm')}>
-                        SIGN UP
-                    </Button>
+                <div className="menu">
+                    <div>
+                        <NavLink to="/list">CATEGORIES</NavLink>
+                    </div>
+                    <div>
+                        <NavLink to="/edit/0">ADD</NavLink>
+                    </div>
+                    <div>
+                        <Button className="menu" onClick={this.toggleForm('loginForm')}>
+                            LOGIN
+                        </Button>
+                    </div>
+                    <div>
+                        <Button className="menu" onClick={this.toggleForm('signupForm')}>
+                            SIGN UP
+                        </Button>
+                    </div>
                 </div>
                 <Modal isOpen={this.state.loginForm.isOpen} toggle={this.toggleForm('loginForm')}>
                     <ModalHeader toggle={this.toggleForm('loginForm')}>Login</ModalHeader>
                     <ModalBody>
                         <Form onSubmit={this.handleLogin}>
                             <FormGroup>
-                                <Label htmlFor="username">Username</Label>
+                                <Label htmlFor="username">E-mail</Label>
                                 <Input type="text" id="username" name="username"
-                                    placeholder="Username or email"
+                                    placeholder="E-mail"
                                     invalid={this.state.loginForm.username.touched && !this.state.loginForm.username.valid}
                                     onChange={this.handleInputChange('loginForm')}
                                     onBlur={this.handleBlur} />
                                 <FormFeedback>
-                                    Username is required
+                                    E-mail is required
                                 </FormFeedback>
                             </FormGroup>
                             <FormGroup>
@@ -231,20 +311,31 @@ class Header extends Component {
                             </FormGroup>                          
                         </Form>
                     </ModalBody>
+                    <ModalFooter>
+                        <FormGroup>
+                        <FacebookLogin
+                            appId="1034092406940238"
+                            autoLoad={false}
+                            fields="name,email,picture"
+                            icon="fa-facebook"
+                            onClick={this.loginFacebookClick}
+                            callback={this.handleFacebookLogin} />
+                        </FormGroup>
+                    </ModalFooter>
                 </Modal>
                 <Modal isOpen={this.state.signupForm.isOpen} toggle={this.toggleForm('signupForm')}>
                     <ModalHeader toggle={this.toggleForm('signupForm')}>SIGN UP</ModalHeader>
                     <ModalBody>
                         <Form onSubmit={this.handleSignup}>
                             <FormGroup>
-                                <Label htmlFor="username">Username</Label>
+                                <Label htmlFor="username">E-mail</Label>
                                 <Input type="text" id="username" name="username"
-                                    placeholder="Username or email"
+                                    placeholder="E-mail"
                                     invalid={this.state.signupForm.username.touched && !this.state.signupForm.username.valid}
                                     onChange={this.handleInputChange('signupForm')}
                                     onBlur={this.handleBlur} />
                                 <FormFeedback>
-                                    Username is required
+                                    E-mail is required
                                 </FormFeedback>
                             </FormGroup>
                             <FormGroup>
@@ -273,8 +364,22 @@ class Header extends Component {
                             </FormGroup>
                         </Form>
                     </ModalBody>
+                    <ModalFooter>
+                        <FormGroup>
+                        <FacebookLogin
+                            appId="1034092406940238"
+                            autoLoad={false}
+                            fields="name,email,picture"
+                            icon="fa-facebook"
+                            textButton="SIGNUP WITH FACEBOOK"
+                            onClick={this.signupFacebookClick}
+                            callback={this.handleFacebookLogin} />
+                        </FormGroup>
+                    </ModalFooter>
+
                 </Modal>
             </div>
+
             </React.Fragment>
         );    
     }

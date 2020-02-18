@@ -8,7 +8,7 @@ class MoviesList extends Component {
 
         return (
             <div>
-                <br/><br/>
+                <br/>
                 <Carrusel category="documentary" />
                 <br/><br/><br/>
                 <Carrusel category="drama" />

@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from './Header';
 import Homepage from './Homepage';
 import MoviesList from './MoviesList';
-import RecentMovies from './RecentMovies';
+import Results from './Results';
 import MovieDetails from './MovieDetails';
 import EditMovie from './EditMovie';
 import Footer from './Footer';
@@ -24,9 +24,9 @@ class Main extends Component {
         );
     }
 
-    const RecentMoviesRoute = () => {
+    const ResultsRoute = () => {
         return (
-            <RecentMovies />
+            <Results />
         );
     }
 
@@ -48,7 +48,7 @@ class Main extends Component {
             <Switch>
                 <Route exact path="/home" component={HomepageRoute} />
                 <Route exact path="/list/" component={MoviesListRoute} />
-                <Route exact path="/recent/" component={RecentMoviesRoute} />
+                <Route exact path="/results" component={ResultsRoute} />
                 <Route exact path="/details/:id" component={MovieDetailsRoute} />
                 <Route exact path="/edit/:id" component={EditMovieRoute} />
                 <Redirect to="/home" />

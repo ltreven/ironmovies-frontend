@@ -25,7 +25,7 @@ class MovieDetails extends Component {
         fetch(baseUrl + 'movies/' + this.state.movie._id, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'bearer ' + cookies.get("iron-token")
+                'Authorization': 'Bearer ' + cookies.get("iron-token")
             },
             method: 'DELETE'
         })
@@ -108,6 +108,9 @@ class MovieDetails extends Component {
             if (this.state.movie._id) {
                 return(
                     <div className="details-grid-container">
+                        <div className="pagetitle">
+                            Movie Details
+                        </div>
                         <div className="movietitle">
                             {this.state.movie.title}
                         </div>
@@ -128,7 +131,7 @@ class MovieDetails extends Component {
                         </div>
                         <div className="buttonEdit">
                             <NavLink to={`/edit/${this.state.movie._id}`}>
-                                EDIT DATA
+                                EDIT
                             </NavLink>
                         </div>
                         <div className="buttonDelete">

@@ -7,39 +7,25 @@
     justify-items: auto;
     align-items: center;
     padding: 10px;
+    color: #5291e3;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    text-align: left;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 0px;
 }
 
 .footer .name {
-    font-family: "Roboto", sans-serif;
-    color: #5291e3;
     font-size: 24px;
-    letter-spacing: 0px;
-    line-height: 1.2;
-    font-weight: 700;
-    font-style: normal;
-    text-align: left;
 }
 
 .footer .contact {
-    font-family: "Roboto", sans-serif;
-    color: #5291e3;
     font-size: 14px;
-    letter-spacing: 0px;
-    line-height: 1.2;
-    font-weight: 700;
-    font-style: normal;
-    text-align: left;
 }
 
 .footer .docs {
-    font-family: "Roboto", sans-serif;
-    color: #5291e3;
     font-size: 14px;
-    letter-spacing: 0px;
-    line-height: 1.2;
-    font-weight: 700;
-    font-style: normal;
-    text-align: left;
 }
 
 .footer .linkedin {

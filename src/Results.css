@@ -1,0 +1,44 @@
+.pagetitle { 
+  font-weight: bold;
+  color: #4455BB;
+  display: flex;
+}
+.pagetitle .title {
+  flex-grow: 6;
+  font-size: 40px;
+  padding: 30px;
+  text-align: left;
+}
+.pagetitle .sort {
+  font-size: 24px;
+  padding: 30px;
+  text-align: center;
+  display: flex;
+}
+.pagetitle .sort .but-sort {
+  padding: 10px;
+}
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    background-color: white;
+    justify-content: center;
+}
+.flex-container > div {
+    background-color: white;
+    margin: 20px;
+
+    font-family: "Roboto", sans-serif;
+    color: #BB66CC;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 75px;
+    margin: 10px;
+    width: 350px;
+}
+.load-more {
+    max-width: 200px;
+    max-height: 100px;
+    object-fit: contain;
+    align-self: center;
+}

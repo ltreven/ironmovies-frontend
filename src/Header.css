@@ -1,105 +1,71 @@
-.header {
-  display: grid;
-  grid-template-columns: 80px 1fr repeat(5, 1fr);
-  grid-template-areas: 
-    'logo title menu1 menu2 menu3 menu4 menu5';
-  width: 100%;
-  height: 60px;
-  text-align: center;
+.topbar {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
   background-color: #FFFFFF;
-  justify-items: auto;
-  align-items: center;
-}
-
-.header .logo {
-  grid-area: logo;
-  background-image: url('/img/ironhack.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  height: 40px;
-}
-
-.header .title {
-  grid-area: title;
   font-family: "Roboto", sans-serif;
   color: #BB66CC;
-  font-size: 24px;
   letter-spacing: 0px;
   line-height: 1.2;
   font-weight: 700;
   font-style: normal;
-  padding: 20px;
+}
+
+.topbar .iron {
+  display: flex;
+  flex-grow: 1;
+  align-items: stretch;
+  flex-wrap: nowrap;
   text-align: left;
+  align-self: center;
+}
+.topbar .search {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+  text-align: center;
+  justify-content: center;
+}
+.topbar .menu {
+  display: flex;
+  flex-grow: 2;
+  align-items: stretch;
+  flex-wrap: wrap;
+  text-align: center;
+  align-self: center;
 }
 
-.header .menu1 {
-  grid-area: menu1;
+.topbar .iron > div {
+  flex-grow: 1;
+  font-size: 24px;
+  text-align: left;
+  align-self: center;
+  padding: 5px;
+}
+.topbar .search > div {
   font-size: 18px;
-  font-weight: 400;
+  justify-content: left;
+  align-content: center;
+  display: flex;
+  padding: 5px;
+  flex-grow: 1;
+  align-self: center;
+}
+.topbar .search > div > input {
+  color: black;
+  font-size: 16px;
+  border-radius: 6px;
+  height: 35px;
+}
+.topbar .menu > div {
+  font-size: 18px;
   text-align: center;
-  white-space: nowrap;
-  cursor: pointer;
+  align-self: center;
+  flex-grow: 1;
 }
 
-.header .menu2 {
-  grid-area: menu2;
-  font-size: 18px;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  cursor: pointer;
+@media screen and (max-width: 700px) {
+  .topbar .iron {   
+    display: none
+  }
 }
-.header .menu3 {
-  grid-area: menu3;
-  font-size: 18px;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.header .menu4 {
-  grid-area: menu4;
-  font-size: 18px;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.header .menu5 {
-  grid-area: menu5;
-  font-size: 18px;
-  font-weight: 400;
-  text-align: center;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-@media screen and (max-width: 768px) {
-  .header {
-    grid-template-areas: 'menu1 menu2 menu3 menu4 menu5';
-    grid-template-columns: repeat(5, 1fr);
-    height: 100px;
-  }
-  .header .logo {
-    display: none;
-  }
-  .header .title {
-    display: none;
-  }
-} 
-
-@media only screen and (max-device-width: 480px) {
-  .header {
-    grid-template-areas: 'menu1 menu2 menu3 '
-                        'menu4 menu5';
-    grid-template-columns: repeat(3, 1fr);
-    height: 100px;
-  }
-  .header .logo {
-    display: none;
-  }
-  .header .title {
-    display: none;
-  }
-} 

@@ -1,9 +1,17 @@
-.movietitle { 
-    grid-area: movietitle; 
+.pagetitle { 
+    grid-area: pagetitle; 
     text-align: left;
     font-size: 40px;
     font-weight: bold;
     color: #4455BB;
+}
+.movietitle { 
+    grid-area: movietitle; 
+    text-align: left;
+    font-size: 24px;
+    font-weight: 400;
+    color: #BB66CC;
+    align-self: center;
 }
 .poster { 
     grid-area: poster; 
@@ -58,6 +66,7 @@
 .details-grid-container {
   display: grid;
   grid-template-areas:
+    'poster pagetitle pagetitle  '
     'poster movietitle movietitle  '
     'poster director director  '
     'poster category category '

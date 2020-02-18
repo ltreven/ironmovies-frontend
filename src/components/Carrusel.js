@@ -3,22 +3,34 @@ import { NavLink } from 'react-router-dom';
 import '../Carrusel.css';
 import { baseUrl } from '../BaseUrl.js';
 import { categories } from '../Categories.js';
+import MovieCard from './MovieCard';
 
 class MovieDetails extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            movies: []
+            movies: [],
+            error: null
         };
+
+        this.loadMovies();
     }
 
-    componentDidMount() {
+    loadMovies = () => {
         fetch(baseUrl + 'movies/')
         .then(res => res.json())
         .then(movies => this.setState({
             movies: movies
-        }) );
+            })
+        )
+        .catch((err) => {
+            const msg = "Could not load data from " + baseUrl + "movies/ "
+            console.log(msg, err);
+            this.setState({
+                error: msg
+            })
+        });
     }
 
     findMoviesByCategory = (category) => {
@@ -39,21 +51,45 @@ class MovieDetails extends Component {
     render () {
 
         const movies = this.findMoviesByCategory(this.props.category).map((movie) => {
-                return (
-                    <NavLink to={`/details/${movie._id}`}>
-                        <img src={movie.posterImageUrl} alt={movie.title}/>
-                    </NavLink>
-                );
-            });
+            return (
+                <div className="card">
+                    <MovieCard movie={movie} see={`/details/${movie._id}`} edit={`/edit/${movie._id}`} />
+                </div>
+            );
+        });
+
+        const errorMsg = () => {
+            return (
+                <div className="error">
+                    ERROR Loading movies: {this.state.error}
+                </div>
+            );
+        }
+
+        const empty = () => {
+            return (
+                <div className="empty">
+                    No Movies here yet :(
+                </div>
+            );
+        }
+
+        let show  = movies;
         
+        if (this.state.error !== null) {
+            // show error message
+            show = errorMsg();
+        } else if (!movies || movies.length === 0) {
+            // show empty
+            show = empty();
+        }
+
         return (
             <div className="scrollcontainer">
                 <div className="category">
                     {this.getTitle(this.props.category)}
                 </div>
-                <div className="scrollmenu">
-                    {movies}
-                </div>
+                {show}
             </div>
         );    
     }
