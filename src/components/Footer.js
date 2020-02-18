@@ -23,7 +23,7 @@ class Footer extends Component {
                     </a>
                 </div>
                 <div className="docs">
-                    <a href="https://github.com/ltreven/ironmovies-backend" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/ltreven/ironmovies-frontend" target="_blank" rel="noopener noreferrer">
                         Repo Frontend
                     </a>
                 </div>
