@@ -112,7 +112,7 @@ class MovieDetails extends Component {
                             Movie Details
                         </div>
                         <div className="movietitle">
-                            {this.state.movie.title}
+                            Title: {this.state.movie.title}
                         </div>
                         <div className="poster">
                             <img src={this.state.movie.posterImageUrl} alt={this.state.movie.title} />
@@ -120,11 +120,14 @@ class MovieDetails extends Component {
                         <div className="director">
                             Director: {this.state.movie.director}
                         </div>
+                        <div className="description">
+                            Description: {this.state.movie.description}
+                        </div>
                         <div className="release">
-                            {releaseDate.toString()}
+                            Release Date: {releaseDate.toString()}
                         </div>
                         <div className="movieCategory">
-                            {this.state.movie.category}
+                            Category: {this.state.movie.category}
                         </div>
                         <div className="score">
                             Score: {this.state.movie.score} points

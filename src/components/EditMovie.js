@@ -325,6 +325,13 @@ class EditMovie extends Component {
                             Director is required
                         </FormFeedback>
                     </FormGroup>
+                    <FormGroup  className="description">
+                        <Label htmlFor="description">Description</Label>
+                        <Input type="text" id="description" name="description"
+                            value={this.state.movie.description || ''}
+                            onChange={this.handleInputChange}
+                            onBlur={this.handleBlur} />
+                    </FormGroup>
                     <FormGroup className="release">
                         <Label htmlFor="release">Release Date</Label>
                         <DatePicker 
